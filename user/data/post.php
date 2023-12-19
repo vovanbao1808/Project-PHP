@@ -1,10 +1,10 @@
 <?php
 // Get ALL post
-function getAllPost($conn)
+function getAllPostByUser($conn, $id)
 {
-    $sql = "SELECT post.Post_ID,account.Username, post.Post_Tittle, post.Post_Content,category.Category_Name, post.Time_create, post.Cover_Url, post.Status_Check FROM post INNER JOIN account ON post.Writer_ID = account.id INNER JOIN category ON post.Category_ID = category.id ";
+    $sql = "SELECT post.Post_ID,account.Username, post.Post_Tittle, post.Post_Content,category.Category_Name, post.Time_create, post.Cover_Url, post.Status_Check FROM post INNER JOIN account ON post.Writer_ID = account.id INNER JOIN category ON post.Category_ID = category.id WHERE account.ID = ?";
     $stmt = $conn->prepare($sql);
-    $stmt->execute();
+    $stmt->execute([$id]);
 
     if ($stmt->rowCount() >= 1) {
         $data = $stmt->fetchAll();
@@ -13,8 +13,8 @@ function getAllPost($conn)
         return 0;
     }
 }
-// Delete Post 
-function deleteByIdPost($conn, $id): void
+// Delete by ID
+function deleteByIdPost($conn, $id,): void
 {
     $sql = "DELETE FROM post where Post_ID= ?";
     $stmt = $conn->prepare($sql);
@@ -29,12 +29,12 @@ function deleteByIdPost($conn, $id): void
         exit;
     }
 }
-// Read Post 
-function getByIdDeep($conn, $id)
+// getById Deep 
+function getByIdDeep($conn, $id, $userid)
 {
-    $sql = "SELECT post.Post_ID,account.Username, post.Post_Tittle, post.Post_Content,category.Category_Name, post.Time_create, post.Cover_Url, post.Status_Check FROM post INNER JOIN account ON post.Writer_ID = account.id INNER JOIN category ON post.Category_ID = category.id WHERE post.Post_ID = ?";
+    $sql = "SELECT post.Post_ID,account.Username, post.Post_Tittle, post.Post_Content,category.Category_Name, post.Time_create, post.Cover_Url, post.Status_Check FROM post INNER JOIN account ON post.Writer_ID = account.id INNER JOIN category ON post.Category_ID = category.id WHERE post.Post_ID = ? and account.ID = ?";
     $stmt = $conn->prepare($sql);
-    $stmt->execute([$id]);
+    $stmt->execute([$id, $userid]);
 
     if ($stmt->rowCount() >= 1) {
         $data = $stmt->fetch();
@@ -43,7 +43,6 @@ function getByIdDeep($conn, $id)
         return 0;
     }
 }
-//get Category 
 function getCategoryByID($conn, $id)
 {
     $sql = "SELECT category.Category_Name FROM post INNER JOIN category ON post.Category_ID = category.id WHERE post.Post_ID = ?";

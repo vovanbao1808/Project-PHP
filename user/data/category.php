@@ -1,5 +1,4 @@
 <?php
-//Get All Category
 function getAllCategory($conn)
 {
     $sql = "SELECT * FROM category";
@@ -14,7 +13,6 @@ function getAllCategory($conn)
     }
 }
 
-//Delete Category
 function deleteByIdCategory($conn, $id): void
 {
     $sql = "DELETE FROM category where ID= ?";
@@ -31,7 +29,6 @@ function deleteByIdCategory($conn, $id): void
     }
 }
 
-//Get Post in Category
 function getByIdDeep($conn, $id)
 {
     $sql = "SELECT post.Post_ID,Username, post.Post_Tittle, post.Post_Content,Category_Name, post.Time_create, post.Cover_Url, post.Status_Check FROM post INNER JOIN account ON post.Writer_ID = account.id INNER JOIN category ON post.Category_ID = category.id WHERE category.ID = ?";

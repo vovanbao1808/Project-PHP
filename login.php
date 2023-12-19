@@ -3,10 +3,10 @@ session_start();
 if (isset($_SESSION['User'])) {
 ?>
 	<script>
-		var confirmation = confirm("You are login now!");
-		if (confirmation) {
+		alert("You are login now!");
+		setTimeout(function() {
 			window.location.href = "/Project-PHP/index.php";
-		}
+		}, 0)
 	</script>
 <?php
 }

@@ -1,7 +1,7 @@
 <?php
 session_start();
 
-if (isset($_SESSION["User"]) && $_SESSION["Role"] === "Admin" && isset($_GET['ID'])) {
+if (isset($_SESSION["User"]) && $_SESSION["Role"] === "User" && isset($_GET['ID'])) {
     $post_id = $_GET['ID'];
 
     include_once("data/post.php");

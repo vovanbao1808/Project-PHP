@@ -1,7 +1,7 @@
 <?php
 session_start();
 include "../../DB_Config/db_config.php";
-if (isset($_SESSION["User"]) && $_SESSION["Role"] === "Admin") {
+if (isset($_SESSION["User"]) && $_SESSION["Role"] === "User") {
     if (
         isset($_POST['title']) &&
         isset($_FILES['cover']) &&
