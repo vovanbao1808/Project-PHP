@@ -3,7 +3,6 @@ session_start();
 include_once('../DB_Config/db_config.php');
 if (isset($_SESSION["User"]) && $_SESSION["Role"] === "Admin" && isset($_GET['ID'])) {
 $id = $_GET['ID'];
-$conn
 ?>
     <!DOCTYPE html>
     <html>
@@ -27,7 +26,7 @@ $conn
 
         <div class="main-table">
             <h3 class="mb-3">All Posts
-                <a href="post-add.php" class="btn btn-success">Add New Post</a>
+                <a href="post-add.php" class="btn btn-success">Thêm Bài Viết Mới</a>
             </h3>
             <?php if (isset($_GET['error'])) { ?>
                 <div class="alert alert-warning">
@@ -46,13 +45,13 @@ $conn
                     <thead>
                         <tr>
                             <th scope="col">ID </th>
-                            <th scope="col">Author</th>
-                            <th scope="col">Post Image</th>
-                            <th scope="col">Title</th>
-                            <th scope="col">Category</th>
-                            <th scope="col">Time create</th>
-                            <th scope="col">Action</th>
-                            <th scope="col">Status</th>
+                            <th scope="col">Người Viết</th>
+                            <th scope="col">Ảnh bìa</th>
+                            <th scope="col">Tiêu đề</th>
+                            <th scope="col">Phân loại</th>
+                            <th scope="col">Thời gian viết</th>
+                            <th scope="col">Hành động</th>
+                            <th scope="col">Trạng thái</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -64,30 +63,21 @@ $conn
                                 <td><img src="../upload/blog/<?php echo $post["Cover_Url"] ?>"></td>
                                 <td><a href="single-post.php?ID=<?php echo $post["Post_ID"] ?>"> <?php echo $post["Post_Tittle"] ?> </td>
                                 <td><?php echo $post["Category_Name"] ?></td>
-                                <td><?php echo $post["Time_create"] ?></td>
+                                <td><?php echo $post["Time_Create"] ?></td>
                                 <td>
                                     <a href="post-delete.php?ID=<?php echo $post["Post_ID"] ?>" class="btn btn-danger">Delete</a>
                                     <br>
                                     &nbsp
                                     <a href="post-edit.php?ID=<?php echo $post["Post_ID"] ?>" class="btn btn-danger">Edit</a>
                                 </td>
-                                <td>
-                                    <?php if ($post["Status_Check"] === 0) {
-                                        echo "Post not accept to show";
-                                    } else if ($post["Status_Check"] === 1) {
-                                        echo "Post accept to show";
-                                    } else {
-                                        echo "Error!";
-                                    }
-                                    ?>
-                                </td>
+                                <td><?php echo $post["Status_Name"]?> </td>
                             </tr>
                         <?php } ?>
                     </tbody>
                 </table>
             <?php } else { ?>
                 <div class="alert alert-warning">
-                    Empty!
+                    Trống!
                 </div>
             <?php } ?>
         </div>

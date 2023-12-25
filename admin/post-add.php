@@ -6,7 +6,8 @@ if (isset($_SESSION["User"]) && $_SESSION["Role"] === "Admin") {
     <html>
 
     <head>
-        <title>Dashboard - Create New Post</title>
+        <title>Trang Quản Lý - Thêm Bài Viết</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <script src="https://cdn.ckeditor.com/ckeditor5/40.1.0/classic/ckeditor.js"></script>
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
@@ -24,8 +25,8 @@ if (isset($_SESSION["User"]) && $_SESSION["Role"] === "Admin") {
         ?>
 
         <div class="main-table">
-            <h3 class="mb-3">Create New Post
-                <a href="post.php" class="btn btn-secondary">Posts</a>
+            <h3 class="mb-3">Thêm Bài Viết Mới
+                <a href="post.php" class="btn btn-secondary">Danh Sách Bài Viết</a>
             </h3>
             <?php if (isset($_GET['error'])) { ?>
                 <div class="alert alert-warning">
@@ -42,23 +43,23 @@ if (isset($_SESSION["User"]) && $_SESSION["Role"] === "Admin") {
             <form class="shadow p-3" action="req/post-create.php" method="post" enctype="multipart/form-data">
 
                 <div class="mb-3">
-                    <label class="form-label">Title</label>
+                    <label class="form-label">Tiêu Đề</label>
                     <input type="text" class="form-control" name="title">
                 </div>
                 <div class="mb-3">
-                    <label class="form-label">Author</label>
+                    <label class="form-label">Tác Giả</label>
                     <input disabled type="text" class="form-control" name="user_write" value="<?php echo $_SESSION["User"] ?>">
                 </div>
                 <div class="mb-3">
-                    <label class="form-label">Cover Image</label>
+                    <label class="form-label">Ảnh Bìa</label>
                     <input type="file" class="form-control" name="cover">
                 </div>
                 <div class="mb-3">
-                    <label class="form-label">Content</label>
+                    <label class="form-label">Nội Dung</label>
                     <textarea class="form-control text" name="text" id="content" rows="12" cols="50"></textarea>
                 </div>
                 <div class="mb-3">
-                    <label class="form-label">Category</label>
+                    <label class="form-label">Danh Mục</label>
                     <select name="category" class="form-control">
                         <?php foreach ($category as $category) { ?>
                             <option value="<?php echo $category['ID'] ?>">

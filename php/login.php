@@ -11,11 +11,11 @@ if (
     $data = "uname=" . $uname;
 
     if (empty($uname)) {
-        $em = "Username is required!";
+        $em = "Tên đăng nhập trống!";
         header("Location: ../login.php?error=$em");
         exit;
     } else if (empty($pass)) {
-        $em = "Password is required!";
+        $em = "Mật khẩu trống!";
         header("Location: ../login.php?error=$em");
         exit;
     } else {

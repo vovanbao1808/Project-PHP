@@ -6,7 +6,8 @@ if (isset($_SESSION["User"]) && $_SESSION["Role"] === "Admin") {
     <html>
 
     <head>
-        <title>Dashboard - Category</title>
+        <title>Trang Quản Lý - Danh Mục</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
@@ -23,8 +24,8 @@ if (isset($_SESSION["User"]) && $_SESSION["Role"] === "Admin") {
         ?>
 
         <div class="main-table">
-            <h3 class="mb-3">All Category
-                <a href="category-add.php" class="btn btn-success">Add New Category</a>
+            <h3 class="mb-3">Tất cả Danh Mục
+                <a href="category-add.php" class="btn btn-success">Thêm Danh Mục mới</a>
             </h3>
             <?php if (isset($_GET['error'])) { ?>
                 <div class="alert alert-warning">
@@ -43,8 +44,8 @@ if (isset($_SESSION["User"]) && $_SESSION["Role"] === "Admin") {
                     <thead>
                         <tr>
                             <th scope="col">ID </th>
-                            <th scope="col">Name Category</th>
-                            <th scope="col">Action</th>
+                            <th scope="col">Tên Danh Mục</th>
+                            <th scope="col">Hành Động</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -66,7 +67,7 @@ if (isset($_SESSION["User"]) && $_SESSION["Role"] === "Admin") {
                 </table>
             <?php } else { ?>
                 <div class="alert alert-warning">
-                    Empty!
+                    Trống
                 </div>
             <?php } ?>
         </div>

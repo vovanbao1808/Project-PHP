@@ -8,7 +8,7 @@ if (isset($_SESSION["User"]) && $_SESSION["Role"] === "Admin") {
         $category = $_POST['category'];
 
         if (empty($category)) {
-            $em = "Category is required";
+            $em = "Tên Danh Mục Trống";
             header("Location: ../category-add.php?error=$em");
             exit;
         } else {
@@ -16,11 +16,11 @@ if (isset($_SESSION["User"]) && $_SESSION["Role"] === "Admin") {
             $stmt = $conn->prepare($sql);
             $res = $stmt->execute([$category]);
             if ($res) {
-                $sm = "Successfully Created!";
+                $sm = "Thêm Danh Mục Mới Thành Công!";
                 header("Location: ../category-add.php?success=$sm");
                 exit;
             } else {
-                $em = "Unknown error occurred";
+                $em = "Lỗi Không xác định";
                 header("Location: ../category-add.php?error=$em");
                 exit;
             }

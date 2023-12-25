@@ -7,6 +7,7 @@ if (isset($_SESSION["User"]) && $_SESSION["Role"] === "Admin") {
 
     <head>
         <title>Dashboard - Create New Category</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <script src="https://cdn.ckeditor.com/ckeditor5/40.1.0/classic/ckeditor.js"></script>
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
@@ -23,8 +24,8 @@ if (isset($_SESSION["User"]) && $_SESSION["Role"] === "Admin") {
         ?>
 
         <div class="main-table">
-            <h3 class="mb-3">Create New Category
-                <a href="category.php" class="btn btn-secondary">All Category</a>
+            <h3 class="mb-3">Tạo Danh Mục Mới
+                <a href="category.php" class="btn btn-secondary">Tất Cả Danh Mục</a>
             </h3>
             <?php if (isset($_GET['error'])) { ?>
                 <div class="alert alert-warning">
@@ -41,11 +42,11 @@ if (isset($_SESSION["User"]) && $_SESSION["Role"] === "Admin") {
             <form class="shadow p-3" action="req/category-create.php" method="post">
 
                 <div class="mb-3">
-                    <label class="form-label">Name Category</label>
+                    <label class="form-label">Tên Danh Mục</label>
                     <input type="text" class="form-control" name="category">
                 </div>
 
-                <button type="submit" class="btn btn-primary">Create</button>
+                <button type="submit" class="btn btn-primary">Thêm</button>
             </form>
         </div>.
         </section>

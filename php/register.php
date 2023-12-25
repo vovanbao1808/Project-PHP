@@ -18,31 +18,31 @@ if (
     $data = "fname=" . $fname . "&uname=" . $uname;
 
     if (empty($fname)) {
-        $em = "Full name is required";
+        $em = "Tên đầy đủ bị trống";
         header("Location: ../register.php?error=$em");
         exit;
     } else if (empty($email)) {
-        $em = "Email is required";
+        $em = "Email bị trống";
         header("Location: ../register.php?error=$em");
         exit;
     } else if (empty($phone)) {
-        $em = "PhoneNumber is required";
+        $em = "Số điện thoại trống";
         header("Location: ../register.php?error=$em");
         exit;
     } else if (empty($uname)) {
-        $em = "UserName is required";
+        $em = "Tên đăng nhập trống";
         header("Location: ../register.php?error=$em");
         exit;
     } else if (empty($pass)) {
-        $em = "Password is required";
+        $em = "Mật khẩu trống";
         header("Location: ../register.php?error=$em");
         exit;
     } else if (empty($repass)) {
-        $em = "Retype Password is required";
+        $em = "Nhập lại mật khẩu trống";
         header("Location: ../register.php?error=$em");
         exit;
     } else if ($pass !== $repass) {
-        $em = "Password and Retype password not same";
+        $em = "Mật khẩu và nhập lại mật khẩu không trùng khớp";
         header("Location: ../register.php?error=$em");
         exit;
     } else {
@@ -50,7 +50,7 @@ if (
         $stmt1 = $conn->prepare($sql1);
         $stmt1->execute([$uname]);
         if ($stmt1->rowCount() == 1) {
-            $em = "Username has been used";
+            $em = "UserName đã tồn tại,vui lòng tạo một tên khác!";
             header("Location: ../register.php?error=$em");
             exit;
         } else {
@@ -58,12 +58,13 @@ if (
                 VALUES (?,?,?,?,?) ";
             $stmt = $conn->prepare($sql);
             $stmt->execute([$fname, $email, $phone, $uname, md5($pass)]);
-
-            header("Location: ../register.php?success=Your account has been created successfully");
+            $sm = "Tài Khoản được tạo thành công, vui lòng đăng nhập để sử dụng trang web!";
+            header("Location: ../register.php?success=$sm");
             exit;
         }
     }
 } else {
-    header("Location: ../register.php?error=error");
+    $em="Lỗi";
+    header("Location: ../register.php?error=$em");
     exit;
 }

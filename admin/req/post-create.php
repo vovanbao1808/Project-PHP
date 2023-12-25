@@ -14,7 +14,7 @@ if (isset($_SESSION["User"]) && $_SESSION["Role"] === "Admin") {
         $category = $_POST['category'];
 
         if (empty($title)) {
-            $em = "Title is required";
+            $em = "Tên Tiêu Đề Bị Trống";
             header("Location: ../post-add.php?error=$em");
             exit;
         } else if (empty($category)) {
@@ -28,7 +28,7 @@ if (isset($_SESSION["User"]) && $_SESSION["Role"] === "Admin") {
             $error = $_FILES['cover']['error'];
             if ($error === 0) {
                 if ($image_size > 20971520) {
-                    $em = "Sorry, your file is too large";
+                    $em = "Xin Lỗi, File Tải Lên lớn hơn 20MB";
                     header("Location: ../post-add.php?error=$em");
                     exit;
                 } else {
@@ -39,15 +39,15 @@ if (isset($_SESSION["User"]) && $_SESSION["Role"] === "Admin") {
                     $image_path = '../../upload/blog/' . $new_image_name;
                     move_uploaded_file($image_temp, $image_path);
                     $_SESSION['Image'] = $new_image_name;
-                    $sql = "INSERT INTO post(Writer_ID, Post_Tittle, Post_Content, Category_ID, Cover_Url, Status_Check) VALUES(?,?,?,?,?,?)";
+                    $sql = "INSERT INTO post(Writer_ID, Post_Tittle, Post_Content, Category_ID, Cover_Url, Status_ID) VALUES(?,?,?,?,?,?)";
                     $stmt = $conn->prepare($sql);
                     $res = $stmt->execute([$_SESSION['ID'], $title, $text, $category, $new_image_name, 1]);
                     if ($res) {
-                        $sm = "Successfully Created!";
+                        $sm = "Thêm Bài Viết Thành Công!";
                         header("Location: ../post-add.php?success=$sm");
                         exit;
                     } else {
-                        $em = "Unknown error occurred";
+                        $em = "Lỗi Không Xác Định!";
                         header("Location: ../post-add.php?error=$em");
                         exit;
                     }
@@ -58,11 +58,11 @@ if (isset($_SESSION["User"]) && $_SESSION["Role"] === "Admin") {
             $stmt = $conn->prepare($sql);
             $res = $stmt->execute([$_SESSION['ID'], $title, $text, $category, 1]);
             if ($res) {
-                $sm = "Successfully Created!";
+                $sm = "Thêm Bài Viết mới Thành Công";
                 header("Location: ../post-add.php?success=$sm");
                 exit;
             } else {
-                $em = "Unknown error occurred";
+                $em = "Lỗi Không xác định";
                 header("Location: ../post-add.php?error=$em");
                 exit;
             }

@@ -2,7 +2,7 @@
 // Get ALL post
 function getAllPost($conn)
 {
-    $sql = "SELECT post.Post_ID,account.Username, post.Post_Tittle, post.Post_Content,category.Category_Name, post.Time_create, post.Cover_Url, post.Status_Check FROM post INNER JOIN account ON post.Writer_ID = account.id INNER JOIN category ON post.Category_ID = category.id ";
+    $sql = "SELECT post.Post_ID,account.Username, post.Post_Tittle,category.Category_Name, post.Time_create, post.Cover_Url, post_status.Status_Name FROM post INNER JOIN account ON post.Writer_ID = account.id INNER JOIN category ON post.Category_ID = category.id INNER JOIN post_status on post.Status_ID = post_status.Status_ID ";
     $stmt = $conn->prepare($sql);
     $stmt->execute();
 
@@ -20,11 +20,11 @@ function deleteByIdPost($conn, $id): void
     $stmt = $conn->prepare($sql);
     $res = $stmt->execute([$id]);
     if ($res) {
-        $em = "Successfully deleted!";
+        $em = "Xóa thành công";
         header("Location: post.php?success=$em");
         exit;
     } else {
-        $em = "Unknown error!";
+        $em = "Xóa thất Bại";
         header("Location: post.php?error=$em");
         exit;
     }
@@ -32,7 +32,7 @@ function deleteByIdPost($conn, $id): void
 // Read Post 
 function getByIdDeep($conn, $id)
 {
-    $sql = "SELECT post.Post_ID,account.Username, post.Post_Tittle, post.Post_Content,category.Category_Name, post.Time_create, post.Cover_Url, post.Status_Check FROM post INNER JOIN account ON post.Writer_ID = account.id INNER JOIN category ON post.Category_ID = category.id WHERE post.Post_ID = ?";
+    $sql = "SELECT post.Post_ID,account.Username, post.Post_Tittle, post.Post_Content,category.Category_Name, post.Time_Create, post.Cover_Url, post_status.Status_Name FROM post INNER JOIN account ON post.Writer_ID = account.id INNER JOIN category ON post.Category_ID = category.id INNER JOIN post_status ON post.Status_ID = post_status.Status_ID  WHERE post.Post_ID = ? ";
     $stmt = $conn->prepare($sql);
     $stmt->execute([$id]);
 
@@ -56,5 +56,3 @@ function getCategoryByID($conn, $id)
         return 0;
     }
 }
-
-// Change post

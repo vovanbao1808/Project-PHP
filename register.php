@@ -1,10 +1,23 @@
+<?php
+session_start();
+if (isset($_SESSION['User'])) {
+?>
+    <script>
+        alert("You are login now!");
+        setTimeout(function() {
+            window.location.href = "/Project-PHP/index.php";
+        }, 0)
+    </script>
+<?php
+}
+?>
 <!DOCTYPE html>
 <html>
 
 <head>
+    <title>Đăng kí</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Register</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="css/style.css">
 </head>
@@ -14,7 +27,7 @@
 
         <form class="shadow w-450 p-3" action="php/register.php" method="post">
 
-            <h4 class="display-4  fs-1">Create Account</h4><br>
+            <h4 class="display-4  fs-1">Tạo tài khoản mới</h4><br>
             <?php if (isset($_GET['error'])) { ?>
                 <div class="alert alert-danger" role="alert">
                     <?php echo htmlspecialchars($_GET['error']); ?>
@@ -27,7 +40,7 @@
                 </div>
             <?php } ?>
             <div class="mb-3">
-                <label class="form-label">Full Name</label>
+                <label class="form-label">Tên đầy đủ</label>
                 <input type="text" class="form-control" name="fname" value="<?php echo (isset($_GET['fname'])) ? htmlspecialchars($_GET['fname']) : "" ?>">
             </div>
             <div class="mb-3">
@@ -35,30 +48,30 @@
                 <input type="email" class="form-control" name="email" value="<?php echo (isset($_GET['email'])) ? htmlspecialchars($_GET['email']) : "" ?>">
             </div>
             <div class="mb-3">
-                <label class="form-label">Phone number</label>
+                <label class="form-label">Số điện thoại</label>
                 <input type="text" class="form-control" name="phone" value="<?php echo (isset($_GET['phone'])) ? htmlspecialchars($_GET['phone']) : "" ?>">
             </div>
             <div class="mb-3">
-                <label class="form-label">Username</label>
+                <label class="form-label">Tên Đăng Nhập</label>
                 <input type="text" class="form-control" name="uname" value="<?php echo (isset($_GET['uname'])) ? htmlspecialchars($_GET['uname']) : "" ?>">
             </div>
 
             <div class="mb-3">
-                <label class="form-label">Password</label>
+                <label class="form-label">Mật Khẩu</label>
                 <input type="password" class="form-control" name="pass">
             </div>
 
             <div class="mb-3">
-                <label class="form-label">Retype Password</label>
+                <label class="form-label">Nhập lại mật khẩu</label>
                 <input type="password" class="form-control" name="repass">
             </div>
 
 
-            <button type="submit" class="btn btn-primary">Register </button>
+            <button type="submit" class="btn btn-primary">Đăng Kí</button>
             &nbsp;&nbsp;&nbsp;
-            <a href="login.php" class="link-secondary">Login</a>
+            <a href="login.php" class="link-secondary">Đăng Nhập</a>
             &nbsp;&nbsp;&nbsp;
-            <a href="index.php" class="link-secondary">Go to homepage</a>
+            <a href="index.php" class="link-secondary">Về trang chủ</a>
         </form>
     </div>
 </body>

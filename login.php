@@ -15,6 +15,7 @@ if (isset($_SESSION['User'])) {
 <html>
 
 <head>
+	<title>Đăng Nhập</title>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>Login</title>
@@ -28,7 +29,7 @@ if (isset($_SESSION['User'])) {
 
 		<form class="shadow w-450 p-3" action="php/login.php" method="post">
 
-			<h4 class="display-4  fs-1">LOGIN</h4><br>
+			<h4 class="display-4  fs-1">Đăng Nhập</h4><br>
 			<?php if (isset($_GET['error'])) { ?>
 				<div class="alert alert-danger" role="alert">
 					<?php echo htmlspecialchars($_GET['error']); ?>
@@ -36,22 +37,22 @@ if (isset($_SESSION['User'])) {
 			<?php } ?>
 
 			<div class="mb-3">
-				<label class="form-label">Username</label>
+				<label class="form-label">Tên Đăng Nhập</label>
 				<input type="text" class="form-control" name="uname" value="<?php echo (isset($_GET['uname'])) ? htmlspecialchars($_GET['uname']) : "" ?>">
 			</div>
 
 			<div class="mb-3">
-				<label class="form-label">Password</label>
+				<label class="form-label">Mật Khẩu</label>
 				<input type="password" class="form-control" name="pass">
 			</div>
 
-			<button type="submit" class="btn btn-primary">Login</button>
+			<button type="submit" class="btn btn-primary">Đăng Nhập</button>
 			&nbsp;&nbsp;&nbsp;
-			<a href="index.php" class="link-secondary">Go to home</a>
+			<a href="index.php" class="link-secondary">Về Trang Chủ</a>
 			&nbsp;&nbsp;&nbsp;
-			<a href="forgetpass.php" class="link-secondary">Forget Password</a>
+			<a href="forgetpass.php" class="link-secondary">Quên Mật Khẩu</a>
 			&nbsp;&nbsp;&nbsp;
-			<a href="register.php" class="link-secondary">Register now</a>
+			<a href="register.php" class="link-secondary">Đăng Kí Ngay</a>
 		</form>
 	</div>
 </body>

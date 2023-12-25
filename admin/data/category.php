@@ -21,11 +21,11 @@ function deleteByIdCategory($conn, $id): void
     $stmt = $conn->prepare($sql);
     $res = $stmt->execute([$id]);
     if ($res) {
-        $em = "Successfully deleted!";
+        $em = "Xóa thành công!";
         header("Location: category.php?success=$em");
         exit;
     } else {
-        $em = "Unknown error!";
+        $em = "Lỗi không xác định!";
         header("Location: category.php?error=$em");
         exit;
     }
@@ -34,7 +34,7 @@ function deleteByIdCategory($conn, $id): void
 //Get Post in Category
 function getByIdDeep($conn, $id)
 {
-    $sql = "SELECT post.Post_ID,Username, post.Post_Tittle, post.Post_Content,Category_Name, post.Time_create, post.Cover_Url, post.Status_Check FROM post INNER JOIN account ON post.Writer_ID = account.id INNER JOIN category ON post.Category_ID = category.id WHERE category.ID = ?";
+    $sql = "SELECT post.Post_ID,account.Username, post.Post_Tittle, post.Post_Content,category.Category_Name,post.Time_Create, post.Cover_Url, post_status.Status_Name FROM post INNER JOIN account ON post.Writer_ID = account.id INNER JOIN category ON post.Category_ID = category.id INNER JOIN post_status on post.Status_ID = post_status.Status_ID WHERE category.ID = ?";
     $stmt = $conn->prepare($sql);
     $stmt->execute([$id]);
 

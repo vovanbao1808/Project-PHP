@@ -20,11 +20,11 @@ function deleteByIdUser($conn, $id): void
     $stmt = $conn->prepare($sql);
     $res = $stmt->execute([$id]);
     if ($res) {
-        $em = "Successfully deleted!";
+        $em = "Xóa thành công!";
         header("Location: user.php?success=$em");
         exit;
     } else {
-        $em = "Unknown error!";
+        $em = "Xóa Thất Bại!";
         header("Location: user.php?error=$em");
         exit;
     }
