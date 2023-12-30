@@ -13,6 +13,15 @@ function getAllPost($conn)
         return 0;
     }
 }
+//
+function getNamebyID($conn,$id)
+{
+    $sql = "SELECT Post_Tittle from post WHERE Post_ID = ?";
+    $stmt = $conn ->prepare($sql);
+    $stmt -> execute([$id]);
+    $data = $stmt ->fetch();
+    return $data["Post_Tittle"];
+}
 // Delete Post 
 function deleteByIdPost($conn, $id): void
 {

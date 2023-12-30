@@ -7,7 +7,12 @@ if (
     $id = $_GET['ID'];
     include_once("data/post.php");
     include_once("../DB_Config/db_config.php");
-    $post = deleteByIdPost($conn, $id);
+    $name = getNamebyID($conn,$id);
+    var_dump($name);
+    // $sql1 = "";
+    // $stmt1 = $conn->prepare($sql1);
+    // $stmt1->execute();
+    // $post = deleteByIdPost($conn, $id);
 ?>
     
 <?php } else {

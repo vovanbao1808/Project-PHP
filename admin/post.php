@@ -58,18 +58,18 @@ if (isset($_SESSION["User"]) && $_SESSION["Role"] === "Admin") {
                         ?>
                             <tr>
                                 <th scope="row"><?php echo ($count++) ?></th>
-                                <td><?php echo $post["Username"] ?></td>
-                                <td><img src="../upload/blog/<?php echo $post["Cover_Url"] ?>"></td>
-                                <td><a href="single-post.php?ID=<?php echo $post["Post_ID"] ?>"> <?php echo $post["Post_Tittle"] ?> </td>
-                                <td><?php echo $post["Category_Name"] ?></td>
-                                <td><?php echo $post["Time_create"] ?></td>
-                                <td>
+                                <td scope="row"><?php echo $post["Username"] ?></td>
+                                <td scope="row"><img src="../upload/blog/<?php echo $post["Cover_Url"] ?>"></td>
+                                <td scope="row"><a href="single-post.php?ID=<?php echo $post["Post_ID"] ?>"> <?php echo $post["Post_Tittle"] ?> </td>
+                                <td scope="row"><?php echo $post["Category_Name"] ?></td>
+                                <td scope="row"><?php echo $post["Time_create"] ?></td>
+                                <td scope="row">
                                     <a href="post-delete.php?ID=<?php echo $post["Post_ID"] ?>" class="btn btn-danger">Delete</a>
                                     <br>
                                     &nbsp
                                     <a href="post-edit.php?ID=<?php echo $post["Post_ID"] ?>" class="btn btn-danger">Edit</a>
                                 </td>
-                                <td><?php echo $post['Status_Name'] ?></td>
+                                <td scope="row"><?php echo $post['Status_Name'] ?></td>
                             </tr>
                         <?php } ?>
                     </tbody>

@@ -16,6 +16,9 @@ if (isset($_SESSION["User"]) && $_SESSION["Role"] === "Admin") {
             $stmt = $conn->prepare($sql);
             $res = $stmt->execute([$category]);
             if ($res) {
+                $sql1 = "INSERT INTO history(User_ID,Category_Name,Event_ID) VALUES (?,?,?)";
+                $stmt1 = $conn->prepare($sql1);
+                $stmt1->execute([$_SESSION["ID"], $category, 8]);
                 $sm = "Thêm Danh Mục Mới Thành Công!";
                 header("Location: ../category-add.php?success=$sm");
                 exit;

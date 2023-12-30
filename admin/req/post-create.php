@@ -43,6 +43,10 @@ if (isset($_SESSION["User"]) && $_SESSION["Role"] === "Admin") {
                     $stmt = $conn->prepare($sql);
                     $res = $stmt->execute([$_SESSION['ID'], $title, $text, $category, $new_image_name, 1]);
                     if ($res) {
+                        $sql1 = "INSERT INTO history(User_ID, Post_Tittle, Event_ID) VALUES (?,?,?)";
+                        $stmt1 = $conn->prepare($sql1);
+                        var_dump($title);
+                        $stmt1->execute([$_SESSION['ID'], $title, 3]);
                         $sm = "Thêm Bài Viết Thành Công!";
                         header("Location: ../post-add.php?success=$sm");
                         exit;
@@ -56,8 +60,11 @@ if (isset($_SESSION["User"]) && $_SESSION["Role"] === "Admin") {
         } else {
             $sql = "INSERT INTO post(Writer_ID, Post_Tittle, Post_Content, Category_ID, Status_Check) VALUES(?,?,?,?,?)";
             $stmt = $conn->prepare($sql);
-            $res = $stmt->execute([$_SESSION['ID'], $title, $text, $category, 1]);
+            $res = $stmt->execute([$_SESSION['ID'], $title, $text, $category, 3]);
             if ($res) {
+                $sql1 = "INSERT INTO history(User_ID, Post_Tittle, Event_ID) VALUES (?,?,?)";
+                $stmt1 = $conn->prepare($sql1);
+                $stmt1->execute([$_SESSION['ID'], $tittle, 3]);
                 $sm = "Thêm Bài Viết mới Thành Công";
                 header("Location: ../post-add.php?success=$sm");
                 exit;

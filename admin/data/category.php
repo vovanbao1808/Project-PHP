@@ -13,6 +13,15 @@ function getAllCategory($conn)
         return 0;
     }
 }
+//Get Name by ID
+function getNamebyID($conn, $id)
+{
+    $sql = "SELECT Category_Name FROM category WHERE ID = ? ";
+    $stmt = $conn->prepare($sql);
+    $stmt->execute([$id]);
+    $data = $stmt->fetch();
+    return $data["Category_Name"];
+}
 
 //Delete Category
 function deleteByIdCategory($conn, $id): void
