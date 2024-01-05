@@ -2,10 +2,9 @@
 // Get ALL User
 function getAllUser($conn)
 {
-    $sql = "SELECT ID, FullName, Username, Time_create FROM account";
+    $sql = "SELECT ID, FullName, Username, Time_create, Role FROM account ORDER BY Time_create DESC";
     $stmt = $conn->prepare($sql);
     $stmt->execute();
-
     if ($stmt->rowCount() >= 1) {
         $data = $stmt->fetchAll();
         return $data;
@@ -21,11 +20,20 @@ function deleteByIdUser($conn, $id): void
     $res = $stmt->execute([$id]);
     if ($res) {
         $em = "Xóa thành công!";
-        header("Location: user.php?success=$em");
+        header("Location: user.php?success=" . urlencode($em));
         exit;
     } else {
         $em = "Xóa Thất Bại!";
-        header("Location: user.php?error=$em");
+        header("Location: user.php?error=" . urlencode($em));
         exit;
     }
+}
+//Get Name By ID
+function getUserNameByID($conn, $id)
+{
+    $sql = "SELECT Username FROM account WHERE ID =?";
+    $stmt = $conn->prepare($sql);
+    $stmt->execute([$id]);
+    $data = $stmt->fetch();
+    return $data["Username"];
 }

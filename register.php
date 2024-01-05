@@ -3,7 +3,7 @@ session_start();
 if (isset($_SESSION['User'])) {
 ?>
     <script>
-        alert("You are login now!");
+        alert("Bạn đã đăng nhập rồi!");
         setTimeout(function() {
             window.location.href = "/Project-PHP/index.php";
         }, 0)
@@ -68,9 +68,9 @@ if (isset($_SESSION['User'])) {
 
 
             <button type="submit" class="btn btn-primary">Đăng Kí</button>
-            &nbsp;&nbsp;&nbsp;
+            &nbsp;
             <a href="login.php" class="link-secondary">Đăng Nhập</a>
-            &nbsp;&nbsp;&nbsp;
+            &nbsp;
             <a href="index.php" class="link-secondary">Về trang chủ</a>
         </form>
     </div>

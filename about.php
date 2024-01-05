@@ -14,13 +14,7 @@ include('inc/menu.php')
 </head>
 
 <body>
-
-    <?php
-    session_start();
-
-    echo $_SESSION["User"];
-
-
-    echo "Thank for using myblog web!";
-    ?>
+    <div class="container">
+        Trang Web Được Viết Bởi Võ Văn Bảo và Nguyễn Ngọc Mai Phương
+    </div>
 </body>

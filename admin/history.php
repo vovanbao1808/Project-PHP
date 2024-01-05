@@ -1,12 +1,18 @@
 <?php
 session_start();
-if (isset($_SESSION["User"]) && $_SESSION["Role"] === "Admin") {
+if (
+    isset($_SESSION["User"]) &&
+    $_SESSION["Role"] === "Admin"
+) {
+    include_once('data/history.php');
+    include_once('../DB_Config/db_config.php');
+    $history = getALLHistory($conn, $_SESSION['ID']);
 ?>
     <!DOCTYPE html>
     <html>
 
     <head>
-        <title>Trang Quản Lý - Lịch Sử</title>
+        <title>Lịch Sử</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
@@ -18,50 +24,50 @@ if (isset($_SESSION["User"]) && $_SESSION["Role"] === "Admin") {
     <body>
         <?php
         include('inc/side-nav.php');
-        include_once('data/history.php');
-        include_once('../DB_Config/db_config.php');
-        $history = getALLHistory($conn, $_SESSION['ID']);
-        // var_dump($history);
         if ($history != 0) {
             $count = 0;
         ?>
-            <table class="table t1 table-bordered" style="width:100%">
-                <thead>
-                    <tr>
-                        <th scope="col">ID </th>
-                        <th scope="col">Thời gian</th>
-                        <th scope="col">Sự kiện</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <?php foreach ($history as $history) { ?>
+            <h3 class="mb-3 text-center">Lịch Sử
+                <br>
+            </h3>
+            <div>
+                <table class="table t1 table-bordered" style="width:100%">
+                    <thead>
                         <tr>
-                            <td scope="row"><?php echo ($count++) ?></td>
-                            <td scope="row"><?php echo $history["Time_Event"] ?></td>
-                            <td scope="row">
-                                <?php
-                                if ($history["Event_ID"] === 1) {
-                                    echo $history["Username"] . " " . $history["Event_Name"];
-                                } else if ($history["Event_ID"] === 2) {
-                                    echo $history["Username"] . " " . $history["Event_Name"];
-                                } else {
-                                    if (empty($history["Post_Tittle"])) {
-                                        echo $history["Username"] . " " . $history["Event_Name"] . " " . "tên" . " " . $history["Category_Name"];
-                                    } else {
-                                        echo $history["Username"] . " " . $history["Event_Name"] . " "  . $history["Post_Tittle"];
-                                    }
-                                }
-                                ?></td>
+                            <th scope="col" class="text-center">ID </th>
+                            <th scope="col" class="text-center">Thời gian</th>
+                            <th scope="col" class="text-center">Hành động</th>
                         </tr>
-                    <?php } ?>
-                </tbody>
-            </table>
+                    </thead>
+                    <tbody>
+                        <?php foreach ($history as $history) { ?>
+                            <tr>
+                                <td scope="row" class="text-center"><?php echo ($count++) ?></td>
+                                <td scope="row" class="text-center"><?php echo $history["Time_Event"] ?></td>
+                                <td scope="row" class="text-center">
+                                    <?php
+                                    if ($history["Event_ID"] === 1 || $history["Event_ID"] === 2) {
+                                        echo $history["Username"] . " " . $history["Event_Name"];
+                                    } else {
+                                        if (empty($history["Post_Tittle"]) && empty($history["Category_Name"])) {
+                                            echo $history["Username"] . " " . $history["Event_Name"] . " " . $history["User"];
+                                        } else if (empty($history["Post_Tittle"])) {
+                                            echo $history["Username"] . " " . $history["Event_Name"] . " " . $history["Category_Name"];
+                                        } else if (empty($history["Category_Name"])) {
+                                            echo $history["Username"] . " " . $history["Event_Name"] . " " . $history["Post_Tittle"];
+                                        }
+                                    }
+                                    ?></td>
+                            </tr>
+                        <?php } ?>
+                    </tbody>
+                </table>
+            </div>
         <?php } else { ?>
             <div class="alert alert-warning">
                 Trống!
             </div>
         <?php } ?>
-
         </section>
         </div>
     </body>

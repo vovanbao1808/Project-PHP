@@ -32,26 +32,26 @@ if (
             $email = $user['Email'];
             $role = $user['Role'];
             $phone = $user['Phone'];
+            $avatar = $user['Avatar'];
             if ($username === $uname && $password === md5($pass)) {
                 $_SESSION['ID'] = $id;
                 $_SESSION['User'] = $username;
                 $_SESSION['Role'] = $role;
-                $_SESSION['Email'] = $email;
-                $_SESSION['Phone'] = $phone;
+                $_SESSION['Avatar'] = $avatar;
                 header("Location: /Project-PHP/index.php");
                 exit;
             } else {
-                $em = "Incorect Username or password";
-                header("Location: ../login.php?error=$em");
+                $em = "Sai tên đăng nhập hoặc mật khẩu";
+                header("Location: ../login.php?error=" . urlencode($em));
                 exit;
             }
         } else {
-            $em = "Incorect Username or password";
-            header("Location: ../login.php?error=$em");
+            $em = "Sai tên đăng nhập hoặc mật khẩu";
+            header("Location: ../login.php?error=" . urlencode($em));
             exit;
         }
     }
 } else {
-    header("Location: ../login.php?error=error");
+    header("Location: ../login.php?error=" . urlencode("error"));
     exit;
 }

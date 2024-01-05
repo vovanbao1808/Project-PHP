@@ -1,12 +1,18 @@
 <?php
 session_start();
-if (isset($_SESSION["User"]) && $_SESSION["Role"] === "Admin") {
+if (
+    isset($_SESSION["User"]) &&
+    $_SESSION["Role"] === "Admin"
+) {
+    include_once("data/post.php");
+    include("../DB_Config/db_config.php");
+    $post = getAllPost($conn);
 ?>
     <!DOCTYPE html>
     <html>
 
     <head>
-        <title>Trang Quản Lý - Bài Viết</title>
+        <title>Bài Viết</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
@@ -18,14 +24,13 @@ if (isset($_SESSION["User"]) && $_SESSION["Role"] === "Admin") {
     <body>
         <?php
         include('inc/side-nav.php');
-        include_once("data/post.php");
-        include("../DB_Config/db_config.php");
-        $post = getAllPost($conn);
         ?>
-
-        <div class="main-table">
-            <h3 class="mb-3">Tất cả bài viết
+        <div>
+            <h3 class="mb-3 text-center">
+                Tất Cả Bài Viết
+                <br>
                 <a href="post-add.php" class="btn btn-success">Thêm Bài Viết Mới</a>
+                <br>
             </h3>
             <?php if (isset($_GET['error'])) { ?>
                 <div class="alert alert-warning">
@@ -43,33 +48,32 @@ if (isset($_SESSION["User"]) && $_SESSION["Role"] === "Admin") {
                 <table class="table t1 table-bordered" style="width:100%">
                     <thead>
                         <tr>
-                            <th scope="col">ID </th>
-                            <th scope="col">Người Viết</th>
-                            <th scope="col">Ảnh bìa</th>
-                            <th scope="col">Tiêu đề</th>
-                            <th scope="col">Danh Mục</th>
-                            <th scope="col">Thời Gian Tạo</th>
-                            <th scope="col">Hành Động</th>
-                            <th scope="col">Trạng thái</th>
+                            <th scope="col" class="text-center">ID </th>
+                            <th scope="col" class="text-center">Người Viết</th>
+                            <th scope="col" class="text-center">Ảnh bìa</th>
+                            <th scope="col" class="text-center">Tiêu đề</th>
+                            <th scope="col" class="text-center">Danh Mục</th>
+                            <th scope="col" class="text-center">Thời Gian Tạo</th>
+                            <th scope="col" class="text-center">Hành Động</th>
+                            <th scope="col" class="text-center">Trạng thái</th>
                         </tr>
                     </thead>
                     <tbody>
                         <?php foreach ($post as $post) {
                         ?>
                             <tr>
-                                <th scope="row"><?php echo ($count++) ?></th>
-                                <td scope="row"><?php echo $post["Username"] ?></td>
-                                <td scope="row"><img src="../upload/blog/<?php echo $post["Cover_Url"] ?>"></td>
-                                <td scope="row"><a href="single-post.php?ID=<?php echo $post["Post_ID"] ?>"> <?php echo $post["Post_Tittle"] ?> </td>
-                                <td scope="row"><?php echo $post["Category_Name"] ?></td>
-                                <td scope="row"><?php echo $post["Time_create"] ?></td>
-                                <td scope="row">
-                                    <a href="post-delete.php?ID=<?php echo $post["Post_ID"] ?>" class="btn btn-danger">Delete</a>
-                                    <br>
-                                    &nbsp
-                                    <a href="post-edit.php?ID=<?php echo $post["Post_ID"] ?>" class="btn btn-danger">Edit</a>
+                                <td class="text-center" scope="row"><?php echo ($count++) ?></td>
+                                <td class="text-center" scope="row"><?php echo $post["Username"] ?></td>
+                                <td class="text-center"><img src="../upload/blog/<?php echo $post["Cover_Url"] ?>" width="50%" height="50%"></td>
+                                <td class="text-center" scope="row"><a href="single-post.php?ID=<?php echo $post["Post_ID"] ?>"> <?php echo $post["Post_Tittle"] ?> </td>
+                                <td class="text-center" scope="row"><?php echo $post["Category_Name"] ?></td>
+                                <td class="text-center" scope="row"><?php echo $post["Time_create"] ?></td>
+                                <td class="text-center" scope="row">
+                                    <a href="post-edit.php?ID=<?php echo $post["Post_ID"] ?>" class="btn btn-success">Sửa</a>
+                                    <br> &nbsp;&nbsp;<br>
+                                    <a href="post-delete.php?ID=<?php echo $post["Post_ID"] ?>" class="btn btn-danger">Xóa</a>
                                 </td>
-                                <td scope="row"><?php echo $post['Status_Name'] ?></td>
+                                <td class="text-center" scope="row"><?php echo $post['Status_Name'] ?></td>
                             </tr>
                         <?php } ?>
                     </tbody>
@@ -82,10 +86,10 @@ if (isset($_SESSION["User"]) && $_SESSION["Role"] === "Admin") {
         </div>
         </section>
         </div>
-        <script>
+        <!-- <script>
             var navList = document.getElementById('navList').children;
             navList.item(1).classList.add("active");
-        </script>
+        </script> -->
     </body>
 
     </html>

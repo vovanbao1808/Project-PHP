@@ -1,6 +1,9 @@
 <?php
 session_start();
-if (isset($_SESSION["User"]) && $_SESSION["Role"] === "Admin") {
+if (
+    isset($_SESSION["User"]) &&
+    $_SESSION["Role"] === "Admin"
+) {
 ?>
     <!DOCTYPE html>
     <html>
@@ -17,7 +20,10 @@ if (isset($_SESSION["User"]) && $_SESSION["Role"] === "Admin") {
 
     <body>
         <?php include('inc/side-nav.php') ?>
-        Welecome to Manager Post !
+        <div class="text-center fs-1 fw-bolder">
+            <br>
+            Chào mừng bạn đến với Trang ADMIN!
+        </div>
         </section>
         </div>
     </body>

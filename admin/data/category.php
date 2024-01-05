@@ -2,7 +2,7 @@
 //Get All Category
 function getAllCategory($conn)
 {
-    $sql = "SELECT * FROM category";
+    $sql = "SELECT * FROM category ORDER BY Time_Create DESC";
     $stmt = $conn->prepare($sql);
     $stmt->execute();
 
@@ -14,7 +14,7 @@ function getAllCategory($conn)
     }
 }
 //Get Name by ID
-function getNamebyID($conn, $id)
+function getCategoryNamebyID($conn, $id)
 {
     $sql = "SELECT Category_Name FROM category WHERE ID = ? ";
     $stmt = $conn->prepare($sql);
@@ -31,11 +31,11 @@ function deleteByIdCategory($conn, $id): void
     $res = $stmt->execute([$id]);
     if ($res) {
         $em = "Xóa thành công!";
-        header("Location: category.php?success=$em");
+        header("Location: category.php?success=" . urlencode($em));
         exit;
     } else {
         $em = "Lỗi không xác định!";
-        header("Location: category.php?error=$em");
+        header("Location: category.php?error=" . urlencode($em));
         exit;
     }
 }
@@ -43,10 +43,9 @@ function deleteByIdCategory($conn, $id): void
 //Get Post in Category
 function getByIdDeep($conn, $id)
 {
-    $sql = "SELECT post.Post_ID,account.Username, post.Post_Tittle, post.Post_Content,category.Category_Name,post.Time_Create, post.Cover_Url, post_status.Status_Name FROM post INNER JOIN account ON post.Writer_ID = account.id INNER JOIN category ON post.Category_ID = category.id INNER JOIN post_status on post.Status_ID = post_status.Status_ID WHERE category.ID = ?";
+    $sql = "SELECT post.Post_ID,account.Username, post.Post_Tittle, post.Post_Content,category.Category_Name,post.Time_Create, post.Cover_Url, post_status.Status_Name FROM post INNER JOIN account ON post.Writer_ID = account.id INNER JOIN category ON post.Category_ID = category.id INNER JOIN post_status on post.Status_ID = post_status.Status_ID WHERE category.ID = ? ORDER BY post.Time_Create DESC";
     $stmt = $conn->prepare($sql);
     $stmt->execute([$id]);
-
     if ($stmt->rowCount() >= 1) {
         $data = [];
         while ($row = $stmt->fetch()) {

@@ -12,15 +12,19 @@ session_start();
                 <li class="nav-item">
                     <a class="nav-link active" aria-current="page" href="/Project-PHP/index.php">Trang chủ</a>
                 </li>
+                &nbsp;&nbsp;&nbsp;
                 <li class="nav-item">
                     <a class="nav-link" href="/Project-PHP/blog.php">Bài Viết</a>
                 </li>
+                &nbsp;&nbsp;&nbsp;
                 <li class="nav-item">
                     <a class="nav-link" href="/Project-PHP/about.php">Về Chúng tôi</a>
                 </li>
+                &nbsp;&nbsp;&nbsp;
                 <li class="nav-item">
                     <a class="nav-link" href="/Project-PHP/contact.php">Liên hệ</a>
                 </li>
+                &nbsp;&nbsp;&nbsp;
                 <?php
                 if (isset($_SESSION["User"])) {
                     echo <<<PHP
@@ -31,23 +35,25 @@ session_start();
                         <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
 PHP;
                     if ($_SESSION["Role"] === "Admin") {
-                        echo '<li><a class="dropdown-item" href="/Project-PHP/admin/dashboard.php">Trang Quản lý ADMIN</a></li>';
+                        echo '<li><a class="dropdown-item" href="/Project-PHP/admin/dashboard.php">Trang ADMIN</a></li>';
                     } else if ($_SESSION['Role'] === "User") {
                         echo '<li><a class="dropdown-item" href="/Project-PHP/user/dashboard.php">Quản Lý Bài Viết</a></li>';
                     }
                     echo '<li><a class="dropdown-item" href="profile.php">Trang cá nhân</a></li>';
+                    echo '<li><a class="dropdown-item" href="changepass.php">Thay đổi mật khẩu</a></li>';
                     echo '<li><a class="dropdown-item" href="logout.php">Đăng xuất</a></li>';
                     echo '</ul></div>';
                 } else {
                     echo '<li class="nav-item">';
-                    echo '<a class="nav-link" href="login.php">Login</a>';
+                    echo '<a class="nav-link" href="login.php">Đăng Nhập</a>';
                     echo '</li>';
                 }
                 ?>
             </ul>
-            <form class="d-flex" role="search">
-                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                <button class="btn btn-outline-success" type="submit">Tìm Kiếm</button>
+            <form class="d-flex" method="post" action="search.php" role="search">
+                <input class="form-control me-3" type="search" placeholder="Tìm kiếm" aria-label="Search" require name="search">
+                &nbsp;&nbsp;&nbsp;
+                <button class="btn btn-outline-success" style="font-size: 13px" type="submit">Tìm Kiếm</button>
             </form>
         </div>
     </div>

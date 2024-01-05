@@ -1,12 +1,18 @@
 <?php
 session_start();
-if (isset($_SESSION["User"]) && $_SESSION["Role"] === "Admin") {
+if (
+    isset($_SESSION["User"]) &&
+    $_SESSION["Role"] === "Admin"
+) {
+    include_once("data/user.php");
+    include("../DB_Config/db_config.php");
+    $user = getAllUser($conn);
 ?>
     <!DOCTYPE html>
     <html>
 
     <head>
-        <title>Trang Quản lý - Người Dùng </title>
+        <title>Tất Cả Người Dùng</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
@@ -18,13 +24,9 @@ if (isset($_SESSION["User"]) && $_SESSION["Role"] === "Admin") {
     <body>
         <?php
         include('inc/side-nav.php');
-        include_once("data/user.php");
-        include("../DB_Config/db_config.php");
-        $user = getAllUser($conn);
         ?>
-
-        <div class="main-table">
-            <h3 class="mb-3">Tất cả người dùng</h3>
+        <div>
+            <h3 class="mb-3 text-center">Tất cả người dùng</h3>
             <?php if (isset($_GET['error'])) { ?>
                 <div class="alert alert-warning">
                     <?= htmlspecialchars($_GET['error']) ?>
@@ -41,23 +43,25 @@ if (isset($_SESSION["User"]) && $_SESSION["Role"] === "Admin") {
                 <table class="table t1 table-bordered">
                     <thead>
                         <tr>
-                            <th scope="col">ID</th>
-                            <th scope="col">Tên đầy đủ</th>
-                            <th scope="col">UserName</th>
-                            <th scope="col">Thời gian tạo</th>
-                            <th scope="col">Hành Động</th>
+                            <th class="text-center" scope="col">ID</th>
+                            <th class="text-center" scope="col">Tên đầy đủ</th>
+                            <th class="text-center" scope="col">Tên Đăng Nhập</th>
+                            <th class="text-center" scope="col">Thời gian tạo</th>
+                            <th class="text-center" scope="col">Vai trò</th>
+                            <th class="text-center" scope="col">Hành Động</th>
                         </tr>
                     </thead>
                     <tbody>
                         <?php foreach ($user as $user) {
                         ?>
                             <tr>
-                                <th scope="row"><?php echo ($count++) ?></th>
-                                <td><?php echo $user["FullName"] ?></td>
-                                <td><?php echo $user["Username"] ?></td>
-                                <td><?php echo $user["Time_create"] ?></td>
-                                <td>
-                                    <a href="user-delete.php?ID=<?php echo $user["ID"] ?>" class="btn btn-danger">Delete</a>
+                                <td class="text-center" scope="row"><?php echo ($count++) ?></td>
+                                <td class="text-center"><?php echo $user["FullName"] ?></td>
+                                <td class="text-center"><?php echo $user["Username"] ?></td>
+                                <td class="text-center"><?php echo $user["Time_create"] ?></td>
+                                <td class="text-center"><?php echo $user["Role"] ?></td>
+                                <td class="text-center">
+                                    <a href="user-delete.php?ID=<?php echo $user["ID"] ?>" class="btn btn-danger">Xóa</a>
                                 </td>
                             </tr>
                         <?php } ?>
@@ -71,10 +75,10 @@ if (isset($_SESSION["User"]) && $_SESSION["Role"] === "Admin") {
         </div>
         </section>
         </div>
-        <script>
+        <!-- <script>
             var navList = document.getElementById(`navList`).children;
             navList.item(0).classList.add("active");
-        </script>
+        </script> -->
     </body>
 
     </html>

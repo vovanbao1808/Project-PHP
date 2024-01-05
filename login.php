@@ -3,7 +3,7 @@ session_start();
 if (isset($_SESSION['User'])) {
 ?>
 	<script>
-		alert("You are login now!");
+		alert("Bạn đã đăng nhập rồi!");
 		setTimeout(function() {
 			window.location.href = "/Project-PHP/index.php";
 		}, 0)
@@ -18,7 +18,6 @@ if (isset($_SESSION['User'])) {
 	<title>Đăng Nhập</title>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Login</title>
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 	<link rel="stylesheet" type="text/css" href="css/style.css">
 </head>
@@ -47,12 +46,12 @@ if (isset($_SESSION['User'])) {
 			</div>
 
 			<button type="submit" class="btn btn-primary">Đăng Nhập</button>
-			&nbsp;&nbsp;&nbsp;
-			<a href="index.php" class="link-secondary">Về Trang Chủ</a>
-			&nbsp;&nbsp;&nbsp;
+			&nbsp;
+			<a href="index.php" class="link-secondary">Trang Chủ</a>
+			&nbsp;
 			<a href="forgetpass.php" class="link-secondary">Quên Mật Khẩu</a>
-			&nbsp;&nbsp;&nbsp;
-			<a href="register.php" class="link-secondary">Đăng Kí Ngay</a>
+			&nbsp;
+			<a href="register.php" class="link-secondary">Đăng Kí </a>
 		</form>
 	</div>
 </body>

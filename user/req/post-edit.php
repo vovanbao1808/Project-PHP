@@ -14,9 +14,10 @@ if (
         $title = $_POST['title'];
         $text = $_POST['text'];
         $category = $_POST['category'];
+        $id = $_POST['ID'];
         if (empty($title)) {
             $em = "Tên Tiêu Đề Bị Trống";
-            header("Location: ../post-add.php?error=" . urlencode($em));
+            header("Location: ../post-edit.php?error=$em");
             exit;
         } else if (empty($category)) {
             $category = 0;
@@ -29,51 +30,51 @@ if (
             if ($error === 0) {
                 if ($image_size > 20971520) {
                     $em = "Xin Lỗi, File Tải Lên lớn hơn 20MB";
-                    header("Location: ../post-add.php?error=" . urlencode($em));
+                    header("Location: ../post-edit.php?error=$em");
                     exit;
                 } else {
                     $image_ex = pathinfo($image_name, PATHINFO_EXTENSION);
                     $image_ex = strtolower($image_ex);
-
                     $new_image_name = uniqid("BLOG-", true) . '.' . $image_ex;
                     $image_path = '../../upload/blog/' . $new_image_name;
                     move_uploaded_file($image_temp, $image_path);
-                    $sql = "INSERT INTO post(Writer_ID, Post_Tittle, Post_Content, Category_ID, Cover_Url, Status_ID) VALUES(?,?,?,?,?,?)";
+                    $_SESSION['Image'] = $new_image_name;
+                    $sql = "UPDATE post SET Post_Tittle = ?, Post_Content = ?, Category_ID = ?, Cover_Url = ?, Status_ID = ? WHERE Post_ID = ?";
                     $stmt = $conn->prepare($sql);
-                    $res = $stmt->execute([$_SESSION['ID'], $title, $text, $category, $new_image_name, 0]);
+                    $res = $stmt->execute([$title, $text, $category, $new_image_name, 0, $id]);
                     if ($res) {
                         $sql1 = "INSERT INTO history(User_ID, Post_Tittle, Event_ID) VALUES (?,?,?)";
                         $stmt1 = $conn->prepare($sql1);
-                        $stmt1->execute([$_SESSION['ID'], $title, 3]);
-                        $sm = "Thêm Bài Viết Thành Công!";
-                        header("Location: ../post-add.php?success=" . urlencode($sm));
+                        $stmt1->execute([$_SESSION['ID'], $title, 6]);
+                        $sm = "Sửa Bài Viết Thành Công!";
+                        header("Location: ../post-edit.php?ID=$id&success=" . urldecode($sm));
                         exit;
                     } else {
                         $em = "Lỗi Không Xác Định!";
-                        header("Location: ../post-add.php?error=" . urlencode($em));
+                        header("Location: ../post-edit.php?ID=$id&error=" . urlencode($em));
                         exit;
                     }
                 }
             }
         } else {
-            $sql = "INSERT INTO post(Writer_ID, Post_Tittle, Post_Content, Category_ID, Status_Check) VALUES(?,?,?,?,?)";
+            $sql = "UPDATE post SET Post_Tittle = ?, Post_Content = ?, Category_ID = ?, Status_ID = ? WHERE Post_ID = ?";
             $stmt = $conn->prepare($sql);
-            $res = $stmt->execute([$_SESSION['ID'], $title, $text, $category, 0]);
+            $res = $stmt->execute([$title, $text, $category, 0, $id]);
             if ($res) {
                 $sql1 = "INSERT INTO history(User_ID, Post_Tittle, Event_ID) VALUES (?,?,?)";
                 $stmt1 = $conn->prepare($sql1);
-                $stmt1->execute([$_SESSION['ID'], $tittle, 3]);
-                $sm = "Thêm Bài Viết mới Thành Công";
-                header("Location: ../post-add.php?success=" . urlencode($sm));
+                $stmt1->execute([$_SESSION['ID'], $tittle, 6]);
+                $sm = "Sửa Bài Viết Thành Công!";
+                header("Location: ../post-edit.php?ID=$id&success=" . urlencode($sm));
                 exit;
             } else {
                 $em = "Lỗi Không xác định";
-                header("Location: ../post-add.php?error=" . urlencode($em));
+                header("Location: ../post-edit.php?ID=$id&error=" . urlencode($em));
                 exit;
             }
         }
     } else {
-        header("Location: ../post-add.php");
+        header("Location: ../post-edit.php");
         exit;
     }
 } else {

@@ -1,6 +1,6 @@
 <script>
-    var confirmation = confirm("You can not go to page!");
-    if (confirmation) {
+    alert("Bạn không có quyền vào trang này!");
+    setTimeout(function() {
         window.location.href = "/Project-PHP/index.php";
-    }
+    }, 0)
 </script>

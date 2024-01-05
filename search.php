@@ -2,17 +2,13 @@
 session_start();
 include('inc/menu.php');
 include('inc/funcs.php');
-$types = GetAll_types();
-if (!isset($_GET['dm'])) {
-    $posts = GetAll_post();
-} else {
-    $posts = GetPost_ByType($_GET['dm']);
-    if (sizeof($posts) == 0) { ?>
-        <script>
-            window.location.href = 'blog.php';
-        </script>
-<?php }
+if (!isset($_POST['search']) ||$_POST['search']=='' ) {
+    echo "<script>
+            window.location.href = 'index.php';
+        </script>";
 }
+$posts = Search($_POST['search']);
+
 ?>
 
 <!DOCTYPE html>
@@ -31,23 +27,11 @@ if (!isset($_GET['dm'])) {
 <body>
     <div class="container-fluid mx-5">
         <section>
-
-            <div class="dropdown">
-                <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
-                    Thể loại
-                </a>
-
-                <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                    <?php foreach ($types as $type) { ?>
-                        <li><a class="dropdown-item" href="blog.php?dm=<?php echo $type['ID'] ?>"><?php echo $type['Category_Name'] ?></a></li>
-                    <?php } ?>
-                </ul>
-            </div>
-            <br>
-
             <main class="main-blog row ">
 
-                <?php foreach ($posts as $post) { ?>
+                <?php
+                if($posts!= -1){
+                foreach ($posts as $post) { ?>
                     <div class="col-12 p-1">
                         <div class="card mb-3" style="width: 100%; height: 280px;">
                             <div class="row g-0" style=" height: 100%;">
@@ -65,7 +49,9 @@ if (!isset($_GET['dm'])) {
                         </div>
                     </div>
                 <?php
-                } ?>
+                } }else{?>
+                <h1 class="text-center">Không tìm thấy</h1>
+                <?php } ?>
             </main>
         </section>
     </div>

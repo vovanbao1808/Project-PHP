@@ -1,12 +1,18 @@
 <?php
 session_start();
-if (isset($_SESSION["User"]) && $_SESSION["Role"] === "Admin") {
+if (
+    isset($_SESSION["User"]) &&
+    $_SESSION["Role"] === "Admin"
+) {
+    include_once("data/post.php");
+    include("../DB_Config/db_config.php");
+    $post = getAllPost($conn);
 ?>
     <!DOCTYPE html>
     <html>
 
     <head>
-        <title>Trang Quản Lý - Kiểm Duyệt</title>
+        <title>Kiểm Duyệt</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
@@ -18,18 +24,16 @@ if (isset($_SESSION["User"]) && $_SESSION["Role"] === "Admin") {
     <body>
         <?php
         include('inc/side-nav.php');
-        include_once("data/post.php");
-        include("../DB_Config/db_config.php");
-        $post = getAllPost($conn);
         ?>
-
-        <!-- <div class="main-table">
+        <div>
+            <br>
+            <h4 class="mb-3 text-center">Bài Viết Đang Chờ</h4>
+            <br>
             <?php if (isset($_GET['error'])) { ?>
                 <div class="alert alert-warning">
                     <?= htmlspecialchars($_GET['error']) ?>
                 </div>
             <?php } ?>
-
             <?php if (isset($_GET['success'])) { ?>
                 <div class="alert alert-success">
                     <?= htmlspecialchars($_GET['success']) ?>
@@ -37,61 +41,53 @@ if (isset($_SESSION["User"]) && $_SESSION["Role"] === "Admin") {
             <?php } ?>
             <?php if ($post != 0) {
                 $count = 0 ?>
-                <table class="table t1 table-bordered">
+                <table class="table t1 table-bordered" style="width:100%;">
                     <thead>
                         <tr>
-                            <th scope="col">ID </th>
-                            <th scope="col">Author</th>
-                            <th scope="col">Post Image</th>
-                            <th scope="col">Title</th>
-                            <th scope="col">Category</th>
-                            <th scope="col">Time create</th>
-                            <th scope="col">Action</th>
-                            <th scope="col">Status</th>
+                            <th scope="col" class="text-center">ID </th>
+                            <th scope="col" class="text-center">Người Viết</th>
+                            <th scope="col" class="text-center">Tiêu đề</th>
+                            <th scope="col" class="text-center">Danh Mục</th>
+                            <th scope="col" class="text-center">Thời Gian Tạo</th>
+                            <th scope="col" class="text-center">Hành Động</th>
+                            <th scope="col" class="text-center">Trạng thái</th>
                         </tr>
                     </thead>
                     <tbody>
                         <?php foreach ($post as $post) {
+                            if ($post["Status_ID"] === 0) {
                         ?>
-                            <tr>
-                                <th scope="row"><?php echo ($count++) ?></th>
-                                <td><?php echo $post["Username"] ?></td>
-                                <td><img src="../upload/blog/<?php echo $post["Cover_Url"] ?>"></td>
-                                <td><a href="single-post.php?ID=<?php echo $post["Post_ID"] ?>"> <?php echo $post["Post_Tittle"] ?> </td>
-                                <td><?php echo $post["Category_Name"] ?></td>
-                                <td><?php echo $post["Time_create"] ?></td>
-                                <td>
-                                    <a href="/req/censorship-accept.php?ID=<?php echo $post["Post_ID"] ?>" class="btn btn-danger">Accept</a>
-                                    <br>
-                                    &nbsp
-                                    <a href="/req/censorship-accept.php?ID=<?php echo $post["Post_ID"] ?>" class="btn btn-danger">Refuse</a>
-                                </td>
-                                <td>
-                                    <?php if ($post["Status_Check"] === 0) {
-                                        echo "Post wait to censorship";
-                                    } else if ($post["Status_Check"] === 1) {
-                                        echo "Post accept to show";
-                                    } else if ($post["Status_Check"] === 2) {
-                                        echo "Post not accept to show";
-                                    }
-                                    ?>
-                                </td>
-                            </tr>
-                        <?php } ?>
+                                <tr>
+                                    <th scope="row" class="text-center"><?php echo ($count++) ?></th>
+                                    <td scope="row" class="text-center"><?php echo $post["Username"] ?></td>
+                                    <td scope="row" class="text-center"><a href="single-post.php?ID=<?php echo $post["Post_ID"] ?>"> <?php echo $post["Post_Tittle"] ?> </td></a>
+                                    <td scope="row" class="text-center"><?php echo $post["Category_Name"] ?></td>
+                                    <td scope="row" class="text-center"><?php echo $post["Time_create"] ?></td>
+                                    <td scope="row" class="text-center">
+                                        <a href="censorship-accpet.php?ID=<?php echo $post["Post_ID"] ?>" class="btn btn-success">Đồng Ý</a>
+                                        &nbsp;
+                                        <a href="censorship-deny.php?ID=<?php echo $post["Post_ID"] ?>" class="btn btn-danger">Từ chối</a>
+                                    </td>
+                                    <td scope="row" class="text-center" scope="row"><?php echo $post['Status_Name'] ?></td>
+                                </tr>
+                        <?php }
+                        } ?>
                     </tbody>
                 </table>
-            <?php } else { ?>
+            <?php
+            } else { ?>
                 <div class="alert alert-warning">
-                    Empty!
+                    Trống!
                 </div>
             <?php } ?>
-        </div> -->
-        </section>
         </div>
-        <script>
+        <br>
+        <br>
+        </section>
+        <!-- <script>
             var navList = document.getElementById('navList').children;
             navList.item(1).classList.add("active");
-        </script>
+        </script> -->
     </body>
 
     </html>
